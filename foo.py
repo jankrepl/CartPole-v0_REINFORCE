@@ -9,7 +9,7 @@ class Policy:
 
         self.__tensorflow_init()
 
-    def choose_action(self, s, greedy=False):
+    def choose_action(self, s, greedy=True):
         """ Choose action based on a probability vector p. If greedy -> argmax, if not -> sample
 
         :param s: state

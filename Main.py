@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from foo import *
 
 # PARAMETERS
-number_of_episodes = 2000
+number_of_episodes = 5000
 
 step_size_initial = 1
 step_size_decay = 1
@@ -25,14 +25,13 @@ step_size = step_size_initial
 for e in range(number_of_episodes):
     s_old = env.reset()
     done = False
-    greedy = False
 
     episode_database = []
     t = 0
     while not done:
         t += 1
 
-        a = my_policy.choose_action(s_old, greedy=greedy)
+        a = my_policy.choose_action(s_old)
 
         s_new, r, done, _ = env.step(a)
 
@@ -41,13 +40,7 @@ for e in range(number_of_episodes):
         s_old = s_new
 
     evol.append(t)
-    if t == 200:
-        greedy = True
-
-    else:
-        greedy = False
-
-    if not greedy:
+    if t != 200:
         print('Updating my policy...')
         for i, pair in enumerate(episode_database):
             estimated_return = t - i - 1
